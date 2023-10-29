@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
+import updateRole from "../actions/user_role_creation";
+import { useRouter } from "next/navigation";
 
 const UserProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("default");
   const [userId, setUserId] = useState("");
 
   const { user, error, isLoading } = useUser();
-
+    const router = useRouter();
   useEffect(() => {
     if (user) {
       // Assuming the user object has a `sub` field that contains the user ID
@@ -25,17 +27,20 @@ const UserProfile = () => {
       // Handle error: user ID should exist at this point
       return;
     }
-
+    console.log(userId);
+    console.log(role);
     // Update Auth0 roles and user information
-    const res = await fetch("/api/updateUserRole", {
+    const res = await fetch("/api/user_profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ userId, name, email, role }),
     });
-
-    const data = await res.json();
+    
+    updateRole(role, userId);
+    router.push("/api/auth/login");
+    //console.log(res);
     // Handle response here (e.g., redirect to dashboard)
   };
 
@@ -83,11 +88,11 @@ const UserProfile = () => {
             onChange={(e) => setRole(e.target.value)}
             className="mt-1 p-2 w-full border rounded-md"
           >
-            <option value="" disabled>
+            <option value="default" disabled>
               Select Role
             </option>
-            <option value="doctor">Doctor</option>
-            <option value="patient">Patient</option>
+            <option value="rol_BgWFZ4OjEAPxhJm4">Doctor</option>
+            <option value="rol_67XOTgEsxsUhR2U8">Patient</option>
           </select>
         </div>
         <div className="mt-4">
