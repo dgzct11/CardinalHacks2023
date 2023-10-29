@@ -81,10 +81,10 @@ export default  function UserProfile(){
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-blue-300 text-gray-800">
+    <div className="flex items-center justify-center min-h-screen bg-blue-300 text-gray-800">
       <form
         onSubmit={handleSubmit}
-        className="p-8 bg-white rounded shadow-md w-96"
+        className="p-8 bg-white mt-8 mb-8 rounded shadow-md w-96"
       >
         <div className="flex justify-center">
           <Image src={cardinal} alt="cardinal logo" width={150} height={150}/>
