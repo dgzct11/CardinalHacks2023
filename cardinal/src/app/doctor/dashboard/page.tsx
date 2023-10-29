@@ -1,106 +1,145 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { PlusIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { useRouter } from 'next/navigation';
+import { getPatients } from '@/app/utils/dbs/doctor-db';
+import { PatientData, MedicationData } from '@/app/utils/models/Patient';
+import { addMedication } from '@/app/utils/dbs/patient-db';
 
 const DoctorDashboard = () => {
-  const [patients, setPatients] = useState([]);
-  const [expandedPatient, setExpandedPatient] = useState(null);
-  const [medicationName, setMedicationName] = useState('');
-  const [medicationDosage, setMedicationDosage] = useState('');
-  const [medicationInstructions, setMedicationInstructions] = useState('');
-
-  useEffect(() => {
-    axios.get('/api/getPatients')
-      .then(response => {
-        setPatients(response.data.patients);
-      })
-      .catch(error => {
-        console.error('Error fetching patients:', error);
-      });
-  }, []);
-
-  const toggleExpand = (patientId) => {
-    if (expandedPatient === patientId) {
-      setExpandedPatient(null);
-    } else {
-      setExpandedPatient(patientId);
+    const [patients, setPatients] = useState<PatientData[]>([]);
+    const [expandedPatient, setExpandedPatient] = useState<string | null>(null);
+    const [medicationName, setMedicationName] = useState<string>('');
+    const [medicationDosage, setMedicationDosage] = useState<string>('');
+    const [medicationInstructions, setMedicationInstructions] = useState<string>('');
+    
+    const { isLoading, user } = useUser();
+    const router = useRouter();
+  
+    useEffect(() => {
+      if (!user || isLoading) return;
+      
+      const fetchData = async () => {
+        const fetchedPatients = await getPatients(user?.sub || '');
+        setPatients(fetchedPatients?.patients || []);
+      };
+      console.log("patients: ", patients)
+  
+      fetchData();
+    }, [user, isLoading]);
+  
+    const toggleExpand = (patientId: string) => {
+      setExpandedPatient(expandedPatient === patientId ? null : patientId);
+    };
+  
+    const handlePrescribe = async (patientId: string) => {
+        const medicationData: MedicationData = {
+          name: medicationName,
+          dosage: medicationDosage,
+          instructions: medicationInstructions,
+          prescribingDoctor: user?.sub || 'Unknown Doctor'
+        };
+        
+        await addMedication(patientId, medicationData);
+        alert('Medication prescribed');
+      
+        // Reset the form
+        setMedicationName('');
+        setMedicationDosage('');
+        setMedicationInstructions('');
+      
+        // Manually update the state to reflect the new medication
+        const updatedPatients = patients.map((patient) => {
+          if (patient.patientId === patientId) {
+            return {
+              ...patient,
+              currentMedications: [...patient.currentMedications, medicationData]
+            };
+          }
+          return patient;
+        });
+      
+        setPatients(updatedPatients);
+      };
+  
+    if (isLoading) {
+      return <div>Loading</div>;
     }
-  };
+  
+    if (!user) {
+      router.push('/');
+    }
 
-  const handlePrescribe = (patientId) => {
-    // Similar to the previous handlePrescribe, but uses patientId from the argument
-    // ...
-  };
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Doctor Dashboard</h1>
-
-      <ul>
+    <div className="p-8 bg-blue-50 text-gray-900">
+      <h1 className="text-2xl font-bold mb-4 text-blue-700">Doctor Dashboard</h1>
+      <div className="grid grid-cols-1 gap-4">
         {patients.map((patient) => (
-          <li key={patient.patientId} className="mb-4">
+          <div key={patient.patientId} className="p-4 rounded-md bg-white shadow">
             <div className="flex justify-between items-center">
-              <span>{patient.name}</span>
-              <button onClick={() => toggleExpand(patient.patientId)}>
-                {expandedPatient === patient.patientId ? (
-                  <span className="material-icons">expand_less</span>
-                ) : (
-                  <span className="material-icons">expand_more</span>
-                )}
+              <span className="text-blue-800 text-lg font-semibold">{patient.name}</span>
+              <button 
+                onClick={() => toggleExpand(patient.patientId)} 
+                className="text-blue-600 hover:text-blue-800">
+                {expandedPatient === patient.patientId ? <ChevronUpIcon className="h-5 w-5" /> : <ChevronDownIcon className="h-5 w-5" />}
               </button>
             </div>
-
             {expandedPatient === patient.patientId && (
-              <div className="mt-2">
-                <div className="mb-2">
+              <div className="mt-4 space-y-4">
+                <div>
                   <strong>Age:</strong> {patient.age}
-                </div>
-                <div className="mb-2">
+                  <br />
                   <strong>Gender:</strong> {patient.gender}
                 </div>
-
-                <div className="mb-4">
-                  <label className="block text-lg font-semibold mb-2">Medication Name</label>
+                <div>
+                  <h3 className="text-md font-semibold mb-2">Medications</h3>
+                  {patient.currentMedications.map((medication, index) => (
+                    <div key={index} className="p-2 rounded-md bg-gray-100 mb-2">
+                      <strong>Name:</strong> {medication.name}
+                      <div><strong>Dosage:</strong> {medication.dosage}</div>
+                      <div><strong>Instructions:</strong> {medication.instructions}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-2">
                   <input
                     type="text"
-                    className="w-full p-2 border rounded"
+                    placeholder="Medication Name"
                     value={medicationName}
                     onChange={(e) => setMedicationName(e.target.value)}
+                    className="w-full p-2 rounded-md border border-blue-300"
                   />
-                </div>
-
-                <div className="mb-4">
-                  <label className="block text-lg font-semibold mb-2">Dosage</label>
                   <input
                     type="text"
-                    className="w-full p-2 border rounded"
+                    placeholder="Dosage"
                     value={medicationDosage}
                     onChange={(e) => setMedicationDosage(e.target.value)}
+                    className="w-full p-2 rounded-md border border-blue-300"
                   />
-                </div>
-
-                <div className="mb-4">
-                  <label className="block text-lg font-semibold mb-2">Instructions</label>
-                  <textarea
-                    className="w-full p-2 border rounded"
+                  <input
+                    type="text"
+                    placeholder="Instructions"
                     value={medicationInstructions}
                     onChange={(e) => setMedicationInstructions(e.target.value)}
+                    className="w-full p-2 rounded-md border border-blue-300"
                   />
+                  <button 
+                    onClick={() => handlePrescribe(patient.patientId)}
+                    className="flex items-center justify-center w-full p-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
+                    <PlusIcon className="h-5 w-5 mr-1" />
+                    Prescribe
+                  </button>
                 </div>
-
-                <button
-                  className="bg-blue-500 text-white p-2 rounded"
-                  onClick={() => handlePrescribe(patient.patientId)}
-                >
-                  Prescribe Medication
-                </button>
               </div>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
+  
 };
 
 export default DoctorDashboard;
