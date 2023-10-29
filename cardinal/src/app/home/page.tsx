@@ -4,7 +4,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaClock, FaChartBar, FaShieldAlt } from 'react-icons/fa';
-import drugs from '../../../images/drugs.jpg'
+import womanDoctor from '../../../images/woman doctor.jpg'
+import stethoscope from '../../../images/heart and stethoscope.jpg'
+import firstAid from '../../../images/first aid kit.jpg'
 
 const HomePage = () => {
   return (
@@ -28,15 +30,19 @@ const HomePage = () => {
         <a href="#about" className="bg-blue-500 hover:bg-blue-600 px-8 py-3 rounded-full transition duration-300">Learn More</a>
       
         {/* Importing the image */}
-        <div className="mt-8 text-center rounded-full">
-          <Image src={drugs} alt="Medicine" width={500} height={500} />
+        <div className="absolute bottom-4 right-20">
+          <Image src={womanDoctor} alt="woman doctor" width={200} height={200} />
+        </div>
+
+        <div className="absolute bottom-12 left-20">
+          <Image src={firstAid} alt="first aid kit" width={200} height={200} />
         </div>
       
       </div>
 
 
       {/* Brief Introduction */}
-      <div id="about" className="p-8 bg-white text-gray-600">
+      <div id="about" className="p-8 bg-white text-gray-800">
         <h2 className="text-3xl font-bold mt-4 mb-4 text-center">About Our App</h2>
         <p className="text-xl text-lg text-center mb-4 max-w-2xl mx-auto">Leveraging the capabilities of artificial intelligence, our app proactively identifies potential medication errors, ensuring the safety and well-being of patients everywhere.</p>
       </div>
