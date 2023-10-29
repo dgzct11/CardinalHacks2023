@@ -24,7 +24,7 @@ Given our constraints - both temporal and experience-wise - the completion of Ca
 
 The voyage from abstract theory to tangible application is paved with challenges. Through this project, our team gained insights into the intricacies of software development, honed our problem-solving skills, and discovered the pivotal role teamwork plays in the success of a project.
 
-## What's Next for Cardinal AI
+## What's Next for Cardinal Care
 
 The horizon for Cardinal Care in the healthcare domain is vast. We envision refining its current capabilities, incorporating predictive algorithms to flag potential medication conflicts, and collaborating with healthcare entities to weave Cardinal Care seamlessly into extant systems.
 
