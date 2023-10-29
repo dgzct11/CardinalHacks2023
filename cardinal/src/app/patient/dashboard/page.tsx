@@ -62,60 +62,76 @@ const PatientDashboard = () => {
 
 
   return (
-    <div className="p-8 bg-blue-50 text-gray-900">
-      <h1 className="text-2xl font-bold mb-4 text-blue-700">Patient Dashboard</h1>
+    <div className="font-sans bg-blue-50 text-gray-900 min-h-screen">
       
-      <button onClick={() => setShowAddDoctor(!showAddDoctor)} className="bg-blue-500 text-white p-2 rounded mb-4">
-        Add Doctor
-      </button>
+      {/* Navbar */}
+      <nav className="flex items-center justify-between bg-blue-900 p-4 text-white">
+        <h1 className="text-2xl font-bold">Cardinal</h1>
+        {/* Other navbar items can be added here if needed */}
+      </nav>
 
-      {showAddDoctor && (
-        <div className="mb-4">
-          <select
-            className="w-full p-2 border rounded"
-            onChange={(e) => setSelectedDoctor(e.target.value)}
-          >
-            <option value="" disabled selected>Select a doctor</option>
-            {availableDoctors.map((doctor) => (
-              <option key={doctor.doctorId} value={doctor.doctorId}>
-                {doctor.name}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleAddDoctor} className="bg-green-500 text-white p-2 rounded mt-2">
-            Confirm
-          </button>
-        </div>
-      )}
-      {/* Doctor List */}
-      <h2 className="text-xl font-semibold mb-4 text-blue-700">Your Doctors</h2>
-      <div className="grid grid-cols-1 gap-4">
-        {doctors.map((doctor) => (
-          <div key={doctor.doctorId} className="p-4 rounded-md bg-white shadow">
-            <div className="flex justify-between items-center">
-              <span className="text-blue-800 text-lg font-semibold">{doctor.name}</span>
-              {/* Additional doctor information can be added here */}
-            </div>
+      <h1 className="text-2xl font-bold mt-4 mb-4 pl-6 text-black">Patient Dashboard</h1>
+  
+      <div className="mt-4 pl-6 pr-6">
+        <button onClick={() => setShowAddDoctor(!showAddDoctor)} className="bg-blue-500 text-white p-4 rounded mb-4">
+          Add Doctor
+        </button>
+  
+        {showAddDoctor && (
+          <div className="mb-4">
+            <select
+              className="w-full p-2 border rounded"
+              onChange={(e) => setSelectedDoctor(e.target.value)}
+            >
+              <option value="" disabled selected>Select a doctor</option>
+              {availableDoctors.map((doctor) => (
+                <option key={doctor.doctorId} value={doctor.doctorId}>
+                  {doctor.name}
+                </option>
+              ))}
+            </select>
+            <button onClick={handleAddDoctor} className="bg-green-500 text-white p-2 rounded mt-2">
+              Confirm
+            </button>
           </div>
-        ))}
+        )}
       </div>
-
-      {/* Medication List */}
-      <h2 className="text-xl font-semibold my-4 text-blue-700">Your Medications</h2>
-      <div className="grid grid-cols-1 gap-4">
-        {medications.map((medication, index) => (
-          <div key={index} className="p-4 rounded-md bg-white shadow">
-            <h3 className="text-blue-800 text-lg font-semibold">{medication.name}</h3>
-            <div>
-              <strong>Prescribing Doctor:</strong> {medication.prescribingDoctorName}
-              <div><strong>Dosage:</strong> {medication.dosage}</div>
-              <div><strong>Instructions:</strong> {medication.instructions}</div>
+  
+      {/* Doctor List with different background */}
+      <div className="bg-blue-50 p-6 rounded">
+        <h2 className="text-xl font-bold mb-4 text-blue-900">Your Doctors</h2>
+        <div className="grid grid-cols-1 gap-4">
+          {doctors.map((doctor) => (
+            <div key={doctor.doctorId} className="p-4 rounded-md bg-white shadow">
+              <div className="flex justify-between items-center">
+                <span className="text-blue-800 text-lg font-semibold">{doctor.name}</span>
+                {/* Additional doctor information can be added here */}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+  
+      {/* Medication List with different background */}
+      <div className="bg-blue-200 p-6 rounded mt-4">
+        <h2 className="text-xl font-bold my-4 text-blue-900">Your Medications</h2>
+        {medications.length === 0 && <p className="mb-4 text-red-600">No medication prescribed yet.</p>}
+        <div className="grid grid-cols-1 gap-4">
+          {medications.map((medication, index) => (
+            <div key={index} className="p-4 rounded-md bg-white shadow">
+              <h3 className="text-blue-800 text-lg font-semibold">{medication.name}</h3>
+              <div>
+                <strong>Prescribing Doctor:</strong> {medication.prescribingDoctorName}
+                <div><strong>Dosage:</strong> {medication.dosage}</div>
+                <div><strong>Instructions:</strong> {medication.instructions}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
+  
 
 
 };
