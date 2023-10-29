@@ -78,7 +78,7 @@ export default  function UserProfile(){
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100 text-gray-800">
+    <div className="flex items-center justify-center h-screen bg-blue-300 text-gray-800">
       <form
         onSubmit={handleSubmit}
         className="p-8 bg-white rounded shadow-md w-96"
