@@ -26,6 +26,10 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+*{
+  @apply min-h-full 
+}
+
 
 .chatContainer {
   display: flex;

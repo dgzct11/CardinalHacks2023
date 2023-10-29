@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
-import { getPatientMedications } from '@/app/utils/dbs/patient-db';
+import { getPatient, getPatientMedications } from '@/app/utils/dbs/patient-db';
 
 
 const openai = new OpenAI({
@@ -12,6 +12,8 @@ export async function POST(req) {
   const { messages } = await req.json();
 
   const initialPrompt = { role: 'system', content: `Read the patient's information, double check, and give them instructions` };
+
+  const patient = await getPatient(patientId);
 
   const patientId = 'YOUR_PATIENT_ID';
   const PatientMedications = await getPatientMedications(patientId);
@@ -28,7 +30,7 @@ console.log("hello")
   }
 
   
-  if (!PatientMedications.medications || PatientMedications.medications.length === 0) {
+  if ( PatientMedications.medications.length === 0) {
     const emptyResponse = {
       status: 200, // You can choose an appropriate status code
       body: JSON.stringify({ message: 'No medications found for this patient' }),
