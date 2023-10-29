@@ -4,7 +4,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaClock, FaChartBar, FaShieldAlt } from 'react-icons/fa';
+<<<<<<< HEAD
 import doctor from '../../../images/doctoryay.jpg';
+=======
+import womanDoctor from '../../../images/woman doctor.jpg'
+import stethoscope from '../../../images/heart and stethoscope.jpg'
+import firstAid from '../../../images/first aid kit.jpg'
+>>>>>>> parent of 40b7e4a (Merge branch 'main' of https://github.com/dgzct11/CardinalHacks2023)
 
 const HomePage = () => {
   return (
@@ -22,6 +28,7 @@ const HomePage = () => {
       </nav>
 
       {/* Hero Section */}
+<<<<<<< HEAD
       <div className="bg-white h-screen flex flex-col justify-center items-center">
         <h1 className="text-4xl text-black font-bold mt-14 mb-4">Revolutionizing Patient Care</h1>
         <p className="text-xl text-black mb-8">Reducing medication errors with the power of AI.</p>
@@ -30,6 +37,20 @@ const HomePage = () => {
         {/* Importing the image */}
         <div className="mt-14 relative w-full h-full">
           <Image src={doctor} alt="doctor" layout="fill" objectFit="cover"/>
+=======
+      <div className="bg-gray-900 h-screen flex flex-col justify-center items-center text-white">
+        <h1 className="text-4xl font-bold mb-4">Revolutionizing Patient Care</h1>
+        <p className="text-xl mb-8">Reducing medication errors with the power of AI.</p>
+        <a href="#about" className="bg-blue-500 hover:bg-blue-600 px-8 py-3 rounded-full transition duration-300">Learn More</a>
+
+        {/* Importing the image */}
+        <div className="absolute bottom-4 right-20">
+          <Image src={womanDoctor} alt="woman doctor" width={200} height={200} />
+        </div>
+
+        <div className="absolute bottom-12 left-20">
+          <Image src={firstAid} alt="first aid kit" width={200} height={200} />
+>>>>>>> parent of 40b7e4a (Merge branch 'main' of https://github.com/dgzct11/CardinalHacks2023)
         </div>
       
       </div>
@@ -75,7 +96,11 @@ const HomePage = () => {
       <div className="bg-gray-900 text-white py-12 text-center">
         <h2 className="text-3xl font-bold mb-4">Join the Future of Patient Care</h2>
         <p className="text-xl mb-8">Get started with our app today and witness the change.</p>
+<<<<<<< HEAD
         <button className="bg-transparent border-2 border-blue-300 text-blue-300 px-8 py-3 rounded-full transition duration-300 hover:bg-blue-500 hover:text-white">Get Started</button>
+=======
+        <button className="bg-transparent border-2 border-blue-500 text-blue-500 px-8 py-3 rounded-full transition duration-300 hover:bg-blue-500 hover:text-white">Get Started</button>
+>>>>>>> parent of 40b7e4a (Merge branch 'main' of https://github.com/dgzct11/CardinalHacks2023)
       </div>
     </div>
   );
