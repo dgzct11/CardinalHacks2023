@@ -24,6 +24,7 @@ const PatientDashboard = () => {
   }
   useEffect(() => {
     // Fetch the list of doctors
+    if(!user || isLoading) return;
     const fetchData = async () => {
         setDoctors( (await getAllDoctors()).doctors || []);
         setMedications((await getPatientMedications(user?.sub || "")).medications || []);

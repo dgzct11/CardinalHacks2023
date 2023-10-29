@@ -5,13 +5,21 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 
 import { useRouter } from "next/navigation";
 import {encodePipeCharacter} from "../utils/functions"
+import { createDoctor } from "../utils/dbs/doctor-db";
+import { createPatient } from "../utils/dbs/patient-db";
+import { DoctorData } from "../utils/models/Doctor";
+import { PatientData } from "../utils/models/Patient";
 
 
-const UserProfile = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("default");
-  const [userId, setUserId] = useState("");
+export default  function UserProfile(){
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [role, setRole] = useState<string>("default");
+    const [userId, setUserId] = useState<string>("");
+    
+    const [age, setAge] = useState<string>(""); // For Patient only
+    const [gender, setGender] = useState<string>(""); // For Patient only
+
 
   const { user, error, isLoading } = useUser();
     const router = useRouter();
@@ -30,6 +38,25 @@ const UserProfile = () => {
       return;
     }
     
+    if (role === "rol_BgWFZ4OjEAPxhJm4") { // If Doctor
+        const doctorData: DoctorData = {
+          doctorId: userId,
+          name,
+          patientsIds: []
+        };
+        await createDoctor(doctorData);
+      } else if (role === "rol_67XOTgEsxsUhR2U8") { // If Patient
+        const patientData: PatientData = {
+          patientId: userId,
+          name,
+          age,
+          gender,
+          medicationAllergies: [], 
+          currentMedications: [], 
+          doctorIds: []
+        };
+        await createPatient(patientData);
+      }
     // Update Auth0 roles and user information
     const res = await fetch("/api/user_profile", {
         method: "POST",
@@ -95,6 +122,37 @@ const UserProfile = () => {
             <option value="rol_67XOTgEsxsUhR2U8">Patient</option>
           </select>
         </div>
+
+           {/* Role-based fields */}
+      {role === "rol_67XOTgEsxsUhR2U8" && (
+        <>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600">
+              Age
+            </label>
+            <input
+              type="text"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600">
+              Gender
+            </label>
+            <input
+              type="text"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+        </>
+      )}
+      
+
+        
         <div className="mt-4">
           <button
             type="submit"
@@ -107,6 +165,4 @@ const UserProfile = () => {
     </div>
   );
 };
-
-export default UserProfile;
 

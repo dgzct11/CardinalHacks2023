@@ -1,3 +1,4 @@
+"use server";
 import { Patient, PatientData, MedicationData } from '../models/Patient'; // Replace with the actual path to your model file
 import mongoose from 'mongoose';
 import connectDB from './connect-db'
@@ -25,9 +26,9 @@ export async function createPatient(patientData: PatientData) {
   try {
     await connectDB();
     const patient = await Patient.create(patientData);
-    return { patient };
+    return { result: true };
   } catch (error) {
-    return { error };
+    return { result: false };
   }
 }
 
