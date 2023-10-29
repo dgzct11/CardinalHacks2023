@@ -2,6 +2,7 @@ import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import { getPatientMedications } from '@/app/utils/dbs/patient-db';
 import { Session } from '@auth0/nextjs-auth0';
+import { getSession } from '@auth0/nextjs-auth0';
 
 
 const openai = new OpenAI({
@@ -14,8 +15,8 @@ export async function POST(req) {
 
   const initialPrompt = { role: 'system', content: `Read the patient's information, double check, and give them instructions` };
 
-
-  const patientId = Session.patientId;
+  const session = getSession(req);
+  const patientId = session.patientId;
 
   
   const PatientMedications = await getPatientMedications(patientId);
@@ -52,7 +53,7 @@ console.log("hello")
 
   
   const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4',
     messages: messagesWithPrompt,
     stream: true,
   });
