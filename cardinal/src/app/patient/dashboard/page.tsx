@@ -142,12 +142,14 @@ const PatientDashboard = () => {
       </div>
 
       {/* Chat Box */}
-      <button
-        onClick={handleChatPrompt}
-        className="bg-blue-600 text-white p-2 rounded mt-4"
-      >
-        Chat for Meds Instructions
-      </button>
+      <div className="pl-6">
+        <button
+          onClick={handleChatPrompt}
+          className="bg-blue-500 text-white p-3 rounded mt-4"
+        >
+          Chat for Meds Instructions
+        </button>
+      </div>
     </div>
 )};
 
