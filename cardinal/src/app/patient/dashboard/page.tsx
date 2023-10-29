@@ -142,10 +142,10 @@ const PatientDashboard = () => {
       </div>
 
       {/* Chat Box */}
-      <div className="pl-6">
+      <div className="bg-white pl-6">
         <button
           onClick={handleChatPrompt}
-          className="bg-blue-500 text-white p-3 rounded mt-4"
+          className="bg-blue-500 text-white p-3 rounded mt-6 mb-8"
         >
           Chat for Meds Instructions
         </button>
