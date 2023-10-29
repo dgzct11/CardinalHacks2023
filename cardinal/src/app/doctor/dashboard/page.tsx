@@ -89,7 +89,7 @@ const DoctorDashboard = () => {
           {/* Welcome message and button */}
           {!showPatients ? (
               <div className="flex flex-col items-center justify-center h-[50vh]">
-                  <h2 className="text-3xl mb-4">Welcome to the Doctor Dashboard</h2>
+                  <h2 className="text-3xl font-bold mb-8">Welcome to the Doctor Dashboard</h2>
                   <button
                       onClick={() => setShowPatients(true)}
                       className="flex items-center justify-center p-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
