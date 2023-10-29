@@ -71,20 +71,19 @@ const PatientDashboard = () => {
 
   return (
     <div className="font-sans bg-blue-50 text-gray-900 min-h-screen">
-      
+
       {/* Navbar */}
       <nav className="flex items-center justify-between bg-blue-900 p-4 text-white">
         <h1 className="text-2xl font-bold">Cardinal</h1>
-        {/* Other navbar items can be added here if needed */}
       </nav>
 
       <h1 className="text-2xl font-bold mt-4 mb-4 pl-6 text-black">Patient Dashboard</h1>
-  
+
       <div className="mt-4 pl-6 pr-6">
         <button onClick={() => setShowAddDoctor(!showAddDoctor)} className="bg-blue-500 text-white p-4 rounded mb-4">
           Add Doctor
         </button>
-  
+
         {showAddDoctor && (
           <div className="mb-4">
             <select
@@ -104,25 +103,29 @@ const PatientDashboard = () => {
           </div>
         )}
       </div>
-  
+
       {/* Doctor List with different background */}
       <div className="bg-blue-50 p-6 rounded">
-        <h2 className="text-xl font-bold my-4 text-blue-900">Your Doctors</h2>
+        <h2 className="text-xl font-bold mb-4 text-blue-900">Your Doctors</h2>
         <div className="grid grid-cols-1 gap-4">
-          {doctors.map((doctor) => (
-            <div key={doctor.doctorId} className="p-4 rounded-md bg-white shadow">
-              <div className="flex justify-between items-center">
-                <span className="text-blue-800 text-lg font-semibold">{doctor.name}</span>
+          {doctors.length === 0 ? (
+            <div className="mb-4">
+              <p className="text-red-600">No doctor selected</p>
+            </div>
+          ) : (
+            doctors.map((doctor) => (
+              <div key={doctor.doctorId} className="p-4 rounded-md bg-white shadow">
+                <h3 className="text-blue-800 text-lg font-semibold">{doctor.name}</h3>
                 {/* Additional doctor information can be added here */}
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
-  
+
       {/* Medication List with different background */}
       <div className="bg-blue-200 p-6 rounded">
-        <h2 className="text-xl font-bold my-4 text-blue-900">Your Medications</h2>
+        <h2 className="text-xl font-bold mt-2 mb-6 text-blue-900">Your Medications</h2>
         {medications.length === 0 && <p className="mb-4 text-red-600">No medication prescribed yet.</p>}
         <div className="grid grid-cols-1 gap-4">
           {medications.map((medication, index) => (
@@ -139,17 +142,15 @@ const PatientDashboard = () => {
       </div>
 
       {/* Chat Box */}
-      <button
-        onClick={handleChatPrompt}
-        className="bg-blue-600 text-white p-2 rounded mt-4"
-      >
-        Chat for Meds Instructions
-      </button>
+      <div className="bg-white pl-6">
+        <button
+          onClick={handleChatPrompt}
+          className="bg-blue-500 text-white p-3 rounded mt-6 mb-8"
+        >
+          Chat for Meds Instructions
+        </button>
+      </div>
     </div>
-  );
-  
-
-
-};
+  )};
 
 export default PatientDashboard;
