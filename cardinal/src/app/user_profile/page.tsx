@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import updateRole from "../actions/user_role_creation";
 import { useRouter } from "next/navigation";
+import {encodePipeCharacter} from "../utils/functions"
+
 
 const UserProfile = () => {
   const [name, setName] = useState("");
@@ -27,18 +29,16 @@ const UserProfile = () => {
       // Handle error: user ID should exist at this point
       return;
     }
-    console.log(userId);
-    console.log(role);
+    
     // Update Auth0 roles and user information
     const res = await fetch("/api/user_profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, name, email, role }),
-    });
-    
-    updateRole(role, userId);
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: encodePipeCharacter(userId), name, email, role }),
+      });
+  
     router.push("/api/auth/login");
     //console.log(res);
     // Handle response here (e.g., redirect to dashboard)
@@ -109,3 +109,4 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
