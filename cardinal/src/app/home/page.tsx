@@ -4,9 +4,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaClock, FaChartBar, FaShieldAlt } from 'react-icons/fa';
-import womanDoctor from '../../../images/woman doctor.jpg'
-import stethoscope from '../../../images/heart and stethoscope.jpg'
-import firstAid from '../../../images/first aid kit.jpg'
+import patient from '../../../images/doctor and patient.png';
+import medicine from '../../../images/medicine.webp';
+import doctor from '../../../images/doctoryay.jpg';
 
 const HomePage = () => {
   return (
@@ -25,17 +25,21 @@ const HomePage = () => {
 
       {/* Hero Section */}
       <div className="bg-gray-900 h-screen flex flex-col justify-center items-center text-white">
-        <h1 className="text-4xl font-bold mb-4">Revolutionizing Patient Care</h1>
+        <h1 className="text-4xl font-bold mt-4 mb-4">Revolutionizing Patient Care</h1>
         <p className="text-xl mb-8">Reducing medication errors with the power of AI.</p>
         <a href="#about" className="bg-blue-500 hover:bg-blue-600 px-8 py-3 rounded-full transition duration-300">Learn More</a>
 
         {/* Importing the image */}
-        <div className="absolute bottom-4 right-20">
-          <Image src={womanDoctor} alt="woman doctor" width={200} height={200} />
+        <div className="absolute bottom-0 right-5">
+          <Image src={patient} alt="doctor and patient" width={500} height={500} />
+        </div>
+      
+        <div className="absolute bottom-2 left-20">
+          <Image src={medicine} alt="medicine" width={250} height={250} />
         </div>
 
-        <div className="absolute bottom-12 left-20">
-          <Image src={firstAid} alt="first aid kit" width={200} height={200} />
+        <div className="mt-8 relative w-full h-full">
+          <Image src={doctor} alt="doctor" layout="fill" objectFit="cover"/>
         </div>
       
       </div>
@@ -51,7 +55,7 @@ const HomePage = () => {
       <div className="flex justify-around p-8 bg-blue-300">
         {/* Feature 1 */}
         <div className="flex flex-col items-center mt- 4 mb-4 space-y-4">
-          <div className="w-16 h-16 bg-blue-500 rounded-full mb-4 flex items-center justify-center">
+          <div className="w-16 h-16 bg-orange-300 rounded-full mb-4 flex items-center justify-center">
             <FaClock size={32} className="text-white"/>
           </div>
           <h3 className="text-xl font-bold">Real-time Analysis</h3>
@@ -60,7 +64,7 @@ const HomePage = () => {
 
         {/* Feature 2 */}
         <div className="flex flex-col items-center mb-4 space-y-4">
-          <div className="w-16 h-16 bg-blue-500 rounded-full mb-4 flex items-center justify-center">
+          <div className="w-16 h-16 bg-orange-300 rounded-full mb-4 flex items-center justify-center">
             <FaChartBar size={32} className="text-white"/>
           </div>
           <h3 className="text-xl font-bold">Data-Driven Insights</h3>
@@ -69,7 +73,7 @@ const HomePage = () => {
 
         {/* Feature 3 */}
         <div className="flex flex-col items-center mb-4 space-y-4">
-          <div className="w-16 h-16 bg-blue-500 rounded-full mb-4 flex items-center justify-center">
+          <div className="w-16 h-16 bg-orange-300 rounded-full mb-4 flex items-center justify-center">
             <FaShieldAlt size={32} className="text-white"/>
           </div>
           <h3 className="text-xl font-bold">Enhanced Safety</h3>
@@ -81,7 +85,7 @@ const HomePage = () => {
       <div className="bg-gray-900 text-white py-12 text-center">
         <h2 className="text-3xl font-bold mb-4">Join the Future of Patient Care</h2>
         <p className="text-xl mb-8">Get started with our app today and witness the change.</p>
-        <button className="bg-transparent border-2 border-blue-500 text-blue-500 px-8 py-3 rounded-full transition duration-300 hover:bg-blue-500 hover:text-white">Get Started</button>
+        <button className="bg-transparent border-2 border-orange-300 text-orange-300 px-8 py-3 rounded-full transition duration-300 hover:bg-blue-500 hover:text-white">Get Started</button>
       </div>
     </div>
   );
