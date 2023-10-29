@@ -17,7 +17,7 @@ const HomePage = () => {
       <nav className="bg-blue-900 p-4 flex justify-between items-center shadow-md">
         <span className="text-2xl text-white font-bold">Cardinal</span>
         <Link href="/api/auth/login">
-        <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full transition duration-300">Login</button>
+        <button className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full transition duration-300">Login</button>
         </Link>
       </nav>
 
