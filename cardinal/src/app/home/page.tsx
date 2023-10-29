@@ -1,6 +1,7 @@
 // page.tsx
 
 import Head from 'next/head';
+import Link from 'next/link';
 
 const HomePage = () => {
   return (
@@ -12,8 +13,10 @@ const HomePage = () => {
       {/* Navbar */}
       <nav className="bg-gray-900 p-4 flex justify-between items-center">
         <span className="text-2xl text-white font-bold">Cardinal</span>
+        <Link href="/api/auth/login">
         <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full transition duration-300">Login</button>
-      </nav>
+        </Link>
+         </nav>
 
       {/* Hero Section */}
       <div className="bg-gray-900 h-screen flex flex-col justify-center items-center text-white">
