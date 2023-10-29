@@ -35,6 +35,8 @@ The horizon for Cardinal AI in the healthcare domain is vast. We envision refini
     - TailwindCSS: For utility-first CSS management.
     - TypeScript: Bringing static typing to JavaScript, enhancing our code reliability.
 
+## General Information
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
