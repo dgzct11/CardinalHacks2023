@@ -1,11 +1,8 @@
 "use server";
 import { Doctor, DoctorData } from '../models/Doctor';  // Replace with the actual path to your Doctor model file
 import { Patient, MedicationData } from '../models/Patient';  // Replace with the actual path to your Patient model file
-
+import connectDB from './connect-db';
 // Connect to MongoDB (Replace this with your actual MongoDB connection logic)
-async function connectDB() {
-  // Your MongoDB connection logic here
-}
 
 export async function createDoctor(doctorData: DoctorData) {
   try {
@@ -57,8 +54,10 @@ export async function getPatients(doctorId: string) {
     }
 
     const patients = await Patient.find({ 'patientId': { $in: doctor.patientsIds } });
+    console.log("Patientsdb: ", patients);
     return { patients };
   } catch (error) {
+    console.log("error: ", error);
     return { error };
   }
 }

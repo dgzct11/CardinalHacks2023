@@ -2,6 +2,7 @@
 import { Patient, PatientData, MedicationData } from '../models/Patient'; // Replace with the actual path to your model file
 import mongoose from 'mongoose';
 import connectDB from './connect-db'
+import { addPatient } from './doctor-db';
 // Connect to MongoDB (Replace this with your actual MongoDB connection logic)
 
 // Add a new doctor to a specific patient
@@ -15,9 +16,11 @@ export async function addDoctor(patientId: string, doctorId: string) {
 
     patient.doctorIds.push(doctorId);
     await patient.save();
-    return { patient };
+
+    addPatient(doctorId, patientId);
+    return { result: true };
   } catch (error) {
-    return { error };
+    return { result: false };
   }
 }
 
@@ -58,9 +61,9 @@ export async function addMedication(patientId: string, medicationData: Medicatio
 
     patient.currentMedications.push(medicationData);
     await patient.save();
-    return { patient };
+    return { result: true };
   } catch (error) {
-    return { error };
+    return { result: false };
   }
 }
 
