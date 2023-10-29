@@ -151,6 +151,6 @@ const PatientDashboard = () => {
         </button>
       </div>
     </div>
-)};
+  )};
 
 export default PatientDashboard;
