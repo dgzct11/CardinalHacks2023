@@ -1,8 +1,8 @@
+
 import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import { getPatientMedications } from '@/app/utils/dbs/patient-db';
-import { Session } from '@auth0/nextjs-auth0';
-import { getSession } from '@auth0/nextjs-auth0';
+import { json } from 'stream/consumers';
 
 
 const openai = new OpenAI({
@@ -11,7 +11,9 @@ const openai = new OpenAI({
 
 
 export async function POST(req) {
+  
   const { messages } = await req.json();
+  console.log(await req.json());
   const PatientMedications = await getPatientMedications(patientId);
   const medicationPrompt = {
     role: 'system',
