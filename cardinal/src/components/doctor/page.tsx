@@ -26,6 +26,7 @@ export default function Doctor() {
 
   return (
     <main className="p-4">
+    
       {/* If there's no selected patient, render the dashboard */}
       {!selectedPatient && <DoctorDashboard onPatientClick={onPatientClick} />}
 

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import PatientForm from './PatientForm';
 import PatientData from './PatientData';
-
+import CustomButton from '../CustomButton';
+import Navbar from './Navbar';
 // Sample data type for patients. Modify as per your data model.
 interface Patient {
   name: string;
@@ -16,11 +17,12 @@ interface Patient {
 }
 
 export default function Patient() {
-  const [edit, setEdit] = useState(false); // State to determine if in edit mode
-
+  const [edit, setEdit] = useState(true); // State to determine if in edit mode
+  
   return (
+    
     <div className="container mx-auto mt-4">
-      {edit ? (
+      {!edit ? (
         <PatientForm />
       ) : (
         <PatientData
@@ -32,12 +34,16 @@ export default function Patient() {
           // ... other props
         />
       )}
-      <button 
-        onClick={() => setEdit(!edit)}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        {edit ? 'View Data' : 'Edit Data'}
-      </button>
+      {edit && (
+        <CustomButton 
+          handleClick={() => setEdit(!edit)}
+          title="Edit Info"
+          btnType="button"
+          containerStyles='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition duration-300'
+        >
+          {edit ? 'View Data' : 'Edit Data'}
+        </CustomButton>
+      )}
     </div>
   );
 }

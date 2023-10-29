@@ -3,7 +3,7 @@
 import { CustomButtonProps } from '@/types';
 import Image from 'next/image';
 
-const CustomButton = ({title, containerStyles, handleClick, btnType}: CustomButtonProps) => {
+const CustomButton = ({title, containerStyles, handleClick, btnType, children}: CustomButtonProps) => {
   return (
     <button
         disabled={false}
