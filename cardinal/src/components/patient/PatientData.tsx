@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import CustomButton from '../CustomButton';
 import { useRouter } from 'next/router';
 
@@ -30,12 +30,12 @@ const PatientData: React.FC<PatientDataProps> = ({
 
 
   const handleEditClick = () => {
-    router.push("/edit-patient-data");
+    router.push("edit-patient-data");
   };
 
 
   return (
-    <div className="bg-white p-6 rounded shadow-lg w-full max-w-2xl">
+    <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl m-auto mt-12">
     <h2 className="text-2xl font-semibold mb-4 border-b pb-2">Patient Details</h2>
     <div className="mt-4">
       <div className="grid grid-cols-2 gap-4">
@@ -45,18 +45,12 @@ const PatientData: React.FC<PatientDataProps> = ({
         <DataField label="Past Diseases" value={pastDiseases} />
         <DataField label="Past Surgical Procedures" value={pastSurgicalProcedures} />
         <DataField label="Current Medication" value={currentMedication} />
-        <DataField label="Current Diseases" value={currentDiseases} />
+        <DataField label="Current Diseases" value={currentDisease} />
         <DataField label="Known Family Risk Factors" value={knownFamilyRisk} />
       </div>
     </div>
     <div className="mt-6">
-        
-        <CustomButton 
-                title="Edit Info"
-                btnType = "button"
-                containerStyles='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition duration-300'
-                onClick = {handleEditClick}
-                />
+
       </div>
   </div>
   );
