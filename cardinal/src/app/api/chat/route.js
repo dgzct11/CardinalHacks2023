@@ -12,57 +12,19 @@ const openai = new OpenAI({
 
 export async function POST(req) {
   const { messages } = await req.json();
-
-  const initialPrompt = { role: 'system', content: `Read the patient's information, double check, and give them instructions` };
-
-  const session = getSession(req);
-  const patientId = session.patientId;
-
-  
   const PatientMedications = await getPatientMedications(patientId);
-
-  console.log(PatientMedications)
-console.log("hello")
-  if (PatientMedications.error) {
-    // Handle the error case when patient medications are not found
-    const errorResponse = {
-        status: 400, // You can choose an appropriate status code
-        body: JSON.stringify({ error: PatientMedications.error }),
-      };
-      return errorResponse;
-  }
-
-  
-  if ( PatientMedications.medications.length === 0) {
-    const emptyResponse = {
-      status: 200, // You can choose an appropriate status code
-      body: JSON.stringify({ message: 'No medications found for this patient' }),
-    };
-    return emptyResponse;
-  }
-  console.log("hello")
-
   const medicationPrompt = {
     role: 'system',
-    content: `Patient medications: ${PatientMedications.medications.join(', ')}`,
+    content: `Patient medications: ${PatientMedications.medications.join('\n')}`,
   }
 
-
+  const initialPrompt = { role: 'system', content: `Read the patient's medecine information, specifically dosage an instructions from the doctor. Provide a step-by-step instruction for each medication to ensure that the patient is taking the medication according to the doctor's wishes and best practices. Answer any questions the user has about the medication, with the preface that you are not a replacement for professional medical device, but provide as much information as required. After this summary, ask the user if they wish to recieve assistance in planning their medication schedule, and ask them questions about their mealtimes, schedule, and post-medication symptoms, and help them find a balanced and efficient schedule to take their meds. Remember, you are an expert medical AI, and you should explain your reasoning with sufficient depth for non-medical users to understand.` };
   const messagesWithPrompt = [initialPrompt, medicationPrompt, ...messages];
-
-
-  
   const response = await openai.chat.completions.create({
     model: 'gpt-4',
     messages: messagesWithPrompt,
     stream: true,
   });
-
-
   const stream = OpenAIStream(response);
-  console.log(stream);
   return new StreamingTextResponse(stream);
-
-  
-
 }
