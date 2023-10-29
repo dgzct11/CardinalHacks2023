@@ -53,7 +53,7 @@ const PatientDashboard = () => {
     setShowAddDoctor(false);
     setSelectedDoctor(null);
 
-    const allDoctors = await getAllDoctors();
+    const allDoctors = await getPatientDoctors(user?.sub || "");
     setDoctors(allDoctors?.doctors || []);
   };
 
