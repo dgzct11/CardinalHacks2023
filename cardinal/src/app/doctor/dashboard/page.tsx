@@ -99,7 +99,7 @@ const DoctorDashboard = () => {
           ) : (
               <>
                   <h1 className="text-2xl font-bold pl-6 mt-4 mb-4 text-black-700">Doctor Dashboard</h1>
-                  <div className="pl-6 grid grid-cols-1 gap-4">
+                  <div className="pl-6 pr-6 grid grid-cols-1 gap-4">
                       {patients.length === 0 ? (
                           <div className="text-xl font-semibold text-blue-800">No patients yet.</div>
                       ) : (
