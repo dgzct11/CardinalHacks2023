@@ -24,11 +24,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  @apply min-h-full;
 }
 
-*{
-  @apply min-h-full 
-}
+
 
 
 .chatContainer {
