@@ -12,6 +12,7 @@
     "@auth0/nextjs-auth0": "^3.2.0",
     "@typegoose/typegoose": "^11.6.0",
     "axios": "^1.6.0",
+    "mongodb": "^6.2.0",
     "mongoose": "^7.6.3",
     "next": "14.0.0",
     "react": "^18",
