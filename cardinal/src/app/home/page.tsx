@@ -25,7 +25,7 @@ const HomePage = () => {
 
       {/* Hero Section */}
       <div className="bg-gray-900 h-screen flex flex-col justify-center items-center text-white">
-        <h1 className="text-4xl font-bold mt-4 mb-4">Revolutionizing Patient Care</h1>
+        <h1 className="text-4xl font-bold mt-14 mb-4">Revolutionizing Patient Care</h1>
         <p className="text-xl mb-8">Reducing medication errors with the power of AI.</p>
         <a href="#about" className="bg-blue-500 hover:bg-blue-600 px-8 py-3 rounded-full transition duration-300">Learn More</a>
 
