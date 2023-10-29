@@ -1,4 +1,4 @@
-import { Patient, PatientData, MedicationData } from './YourModelFile'; // Replace with the actual path to your model file
+import { Patient, PatientData, MedicationData } from '../models/Patient'; // Replace with the actual path to your model file
 import mongoose from 'mongoose';
 import connectDB from './connect-db'
 // Connect to MongoDB (Replace this with your actual MongoDB connection logic)
@@ -90,6 +90,25 @@ export async function addMedicalAllergy(patientId: string, allergy: string) {
     patient.medicationAllergies.push(allergy);
     await patient.save();
     return { patient };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function getPatientMedications(patientId: string) {
+  try {
+    await connectDB();
+    const patient = await Patient.findOne({ patientId });
+    if (!patient) {
+      return { error: 'Patient not found' };
+    }
+
+    const medications: MedicationData[] = patient.currentMedications; // Assuming `currentMedications` is the field in your model
+    if (!medications || medications.length === 0) {
+      return { error: 'No medications found for this patient' };
+    }
+
+    return { medications };
   } catch (error) {
     return { error };
   }

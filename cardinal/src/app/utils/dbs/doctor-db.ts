@@ -1,5 +1,5 @@
-import { Doctor, DoctorData } from './YourDoctorModelFile';  // Replace with the actual path to your Doctor model file
-import { Patient, MedicationData } from './YourPatientModelFile';  // Replace with the actual path to your Patient model file
+import { Doctor, DoctorData } from '../models/Doctor';  // Replace with the actual path to your Doctor model file
+import { Patient, MedicationData } from '../models/Patient';  // Replace with the actual path to your Patient model file
 
 // Connect to MongoDB (Replace this with your actual MongoDB connection logic)
 async function connectDB() {
@@ -28,8 +28,8 @@ export async function addPatient(doctorId: string, patientId: string) {
     if (!doctor) {
       return { error: 'Doctor not found' };
     }
-
-    doctor.patientIds.push(patientId);
+  
+    doctor.patientsIds.push(patientId);
     await doctor.save();
     return { doctor };
   } catch (error) {
@@ -42,11 +42,11 @@ export async function getPatients(doctorId: string) {
   try {
     await connectDB();
     const doctor = await Doctor.findOne({ doctorId });
-    if (!doctor || !doctor.patientIds) {
+    if (!doctor || !doctor.patientsIds) {
       return { error: 'Doctor not found or no patients found' };
     }
 
-    const patients = await Patient.find({ 'patientId': { $in: doctor.patientIds } });
+    const patients = await Patient.find({ 'patientId': { $in: doctor.patientsIds } });
     return { patients };
   } catch (error) {
     return { error };
@@ -62,7 +62,7 @@ export async function addMedicationToPatient(doctorId: string, patientId: string
       return { error: 'Doctor not found' };
     }
 
-    if (!doctor.patientIds.includes(patientId)) {
+    if (!doctor.patientsIds.includes(patientId)) {
       return { error: 'Patient not associated with this doctor' };
     }
 
@@ -74,6 +74,20 @@ export async function addMedicationToPatient(doctorId: string, patientId: string
     patient.currentMedications.push(medicationData);
     await patient.save();
     return { patient };
+  } catch (error) {
+    return { error };
+  }
+}
+
+
+export async function getAllDoctors() {
+  try {
+    await connectDB();
+    const doctors = await Doctor.find({}); // Empty filter to get all doctors
+    if (!doctors || doctors.length === 0) {
+      return { error: 'No doctors found' };
+    }
+    return { doctors };
   } catch (error) {
     return { error };
   }
