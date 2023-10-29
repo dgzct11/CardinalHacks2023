@@ -147,7 +147,7 @@ const PatientDashboard = () => {
           onClick={handleChatPrompt}
           className="bg-blue-500 text-white p-3 rounded mt-6 mb-8"
         >
-          Chat for Meds Instructions
+          Chat for Medicine Instructions
         </button>
       </div>
     </div>
