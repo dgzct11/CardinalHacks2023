@@ -21,7 +21,7 @@ export default async function getRoles(
     
     return response.data[0].name;
   } catch (error: unknown) {
-    console.log('there was an error', error);
-    return { error: 'An unexpected error occurred' };
+    //console.log('there was an error', error);
+    return { error: 'An unexpected error occurred'};
   }
 };

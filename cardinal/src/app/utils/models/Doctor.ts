@@ -15,7 +15,7 @@ import { BeAnObject } from "@typegoose/typegoose/lib/types";
   export interface DoctorData {
     doctorId: string;
     name: string;
-    patientsIds?: string[];
+    patientsIds: string[];
   }
 
   @post<DoctorClass>("save", function (doc) {
@@ -50,8 +50,8 @@ import { BeAnObject } from "@typegoose/typegoose/lib/types";
     @prop({required: true})
     name: string;
 
-    @prop()
-    patientsIds?: string[];
+    @prop({default: []})
+    patientsIds: string[];
 
     _id: mongoose.Types.ObjectId | string;
   
