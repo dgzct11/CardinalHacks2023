@@ -77,10 +77,11 @@ const PatientDashboard = () => {
         <h1 className="text-2xl font-bold">Cardinal</h1>
       </nav>
 
-      <h1 className="text-2xl font-bold mt-4 mb-4 pl-6 text-black">Patient Dashboard</h1>
+      <h1 className="text-2xl font-bold mt-4 pl-6 text-black">Patient Dashboard</h1>
+      <p className="text-small mb-4 pl-6">Welcome to the Patient Dashboard!</p>
 
       <div className="mt-4 pl-6 pr-6">
-        <button onClick={() => setShowAddDoctor(!showAddDoctor)} className="bg-blue-500 text-white p-4 rounded mb-4">
+        <button onClick={() => setShowAddDoctor(!showAddDoctor)} className="bg-blue-500 text-white mt-2 p-4 rounded">
           Add Doctor
         </button>
 
