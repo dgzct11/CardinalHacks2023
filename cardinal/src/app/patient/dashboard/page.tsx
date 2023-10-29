@@ -99,22 +99,28 @@ const PatientDashboard = () => {
   
       {/* Doctor List with different background */}
       <div className="bg-blue-50 p-6 rounded">
-        <h2 className="text-xl font-bold my-4 text-blue-900">Your Doctors</h2>
-        <div className="grid grid-cols-1 gap-4">
-          {doctors.map((doctor) => (
-            <div key={doctor.doctorId} className="p-4 rounded-md bg-white shadow">
-              <div className="flex justify-between items-center">
-                <span className="text-blue-800 text-lg font-semibold">{doctor.name}</span>
-                {/* Additional doctor information can be added here */}
-              </div>
-            </div>
-          ))}
-        </div>
+          <h2 className="text-xl font-semibold mb-4 text-blue-900">Your Doctors</h2>
+          <div className="grid grid-cols-1 gap-4">
+              {doctors.length === 0 ? (
+                  <div className="mb-4">
+                      <p className="text-red-600">No doctor selected</p>
+                  </div>
+              ) : (
+                  doctors.map((doctor) => (
+                      <div key={doctor.doctorId} className="p-4 rounded-md bg-white shadow">
+                          <h3 className="text-blue-800 text-lg font-semibold">{doctor.name}</h3>
+                          {/* Additional doctor information can be added here */}
+                      </div>
+                  ))
+              )}
+          </div>
       </div>
+
+
   
       {/* Medication List with different background */}
       <div className="bg-blue-200 p-6 rounded">
-        <h2 className="text-xl font-bold my-4 text-blue-900">Your Medications</h2>
+        <h2 className="text-xl font-bold mt-2 mb-6 text-blue-900">Your Medications</h2>
         {medications.length === 0 && <p className="mb-4 text-red-600">No medication prescribed yet.</p>}
         <div className="grid grid-cols-1 gap-4">
           {medications.map((medication, index) => (
