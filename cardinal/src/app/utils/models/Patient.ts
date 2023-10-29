@@ -10,32 +10,19 @@ import {
 import { BeAnObject } from "@typegoose/typegoose/lib/types";
   import mongoose from "mongoose";
   
-  
-  export interface TreatmentData {
-    name: string ;
-    startDate: Date | null;
-    endDate?: Date | null;
-    dose?: string;
-    comment?: string;
-  }
-  export interface DiseaseData {
+  export interface MedicationData {
     name: string;
-    startDate: Date | null;
-    endDate?: Date | null;
-    stage: string;
-    condition: string;
-    comments?: string;
-    treatments: TreatmentData[];
-
+    dosage: string;
+    instructions: string;
   }
   export interface PatientData {
     patientId: string;
     name: string;
-    email: string;
-    joinDate: Date;
-    diseases?: DiseaseData[];
-    age?: string;
-    sex?: string;
+    age: string;
+    gender: string;
+    medicationAllergies: string[];
+    currentMedications: MedicationData[];
+    doctorIds: string[];
   }
   @post<PatientClass>("save", function (doc) {
     if (doc) {
@@ -64,25 +51,25 @@ import { BeAnObject } from "@typegoose/typegoose/lib/types";
   @index({ title: 1 })
   class PatientClass {
     @prop({required: true})
-    patientId: string
+    patientId: string;
 
     @prop({required: true})
-    name: string
+    name: string;
 
     @prop({required: true})
-    email: string
-
-    @prop({required: true})
-    joinDate: Date
-
-    @prop()
-    diseases: DiseaseData[]
-
-    @prop()
     age: string;
 
-    @prop()
-    sex: string;
+    @prop({required: true})
+    gender: string;
+
+    @prop({required: true})
+    medicationAllergies: string[];
+
+    @prop({required: true})
+    currentMedications: MedicationData[];
+
+    @prop({required: true})
+    doctorIds: string[];
 
     _id: mongoose.Types.ObjectId | string;
   
