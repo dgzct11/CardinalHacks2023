@@ -14,7 +14,8 @@ import { BeAnObject } from "@typegoose/typegoose/lib/types";
     name: string;
     dosage: string;
     instructions: string;
-    prescribingDoctor: string;
+    prescribingDoctorID: string;
+    prescribingDoctorName: string;
   }
   export interface PatientData {
     patientId: string;

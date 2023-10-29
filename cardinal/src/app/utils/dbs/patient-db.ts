@@ -3,6 +3,7 @@ import { Patient, PatientData, MedicationData } from '../models/Patient'; // Rep
 import mongoose from 'mongoose';
 import connectDB from './connect-db'
 import { addPatient } from './doctor-db';
+import {Doctor} from '../models/Doctor'
 // Connect to MongoDB (Replace this with your actual MongoDB connection logic)
 
 // Add a new doctor to a specific patient
@@ -67,6 +68,8 @@ export async function addMedication(patientId: string, medicationData: Medicatio
   }
 }
 
+
+
 // Update a Patient's information
 export async function updateInformation(patientId: string, updatedData: Partial<PatientData>) {
   try {
@@ -114,6 +117,23 @@ export async function getPatientMedications(patientId: string) {
 
     return { medications };
   } catch (error) {
+    return { error };
+  }
+}
+
+export async function getPatientDoctors(patientId: string) {
+  try {
+    await connectDB();
+    const patient = await Patient.findOne({ patientId });
+    if (!patient || !patient.doctorIds || patient.doctorIds.length === 0) {
+      return { error: 'Patient not found or no doctors found' };
+    }
+
+    const doctors = await Doctor.find({ 'doctorId': { $in: patient.doctorIds } });
+    console.log("Doctorsdb: ", doctors);
+    return { doctors };
+  } catch (error) {
+    console.log("error: ", error);
     return { error };
   }
 }

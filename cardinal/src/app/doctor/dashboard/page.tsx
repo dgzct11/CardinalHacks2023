@@ -38,7 +38,8 @@ const DoctorDashboard = () => {
           name: medicationName,
           dosage: medicationDosage,
           instructions: medicationInstructions,
-          prescribingDoctor: user?.sub || 'Unknown Doctor'
+          prescribingDoctorID: user?.sub || 'Unknown Doctor',
+          prescribingDoctorName: user?.name || 'Unkown Doctor'
         };
         
         await addMedication(patientId, medicationData);
