@@ -28,7 +28,7 @@ const HomePage = () => {
         <h1 className="text-4xl font-bold mb-4">Revolutionizing Patient Care</h1>
         <p className="text-xl mb-8">Reducing medication errors with the power of AI.</p>
         <a href="#about" className="bg-blue-500 hover:bg-blue-600 px-8 py-3 rounded-full transition duration-300">Learn More</a>
-      
+
         {/* Importing the image */}
         <div className="absolute bottom-4 right-20">
           <Image src={womanDoctor} alt="woman doctor" width={200} height={200} />
