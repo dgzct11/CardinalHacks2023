@@ -4,15 +4,15 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 245, 245, 245;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+@media () {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 25, 25, 25;
+    --background-end-rgb: 35, 35, 35;
   }
 }
 
@@ -20,15 +20,11 @@ body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
-      transparent,
+      rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    );
   @apply min-h-full;
 }
-
-
-
 
 .chatContainer {
   display: flex;
@@ -37,6 +33,7 @@ body {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
 
@@ -47,6 +44,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #000;
 }
 
 .systemMessage,
@@ -55,6 +56,7 @@ body {
   padding: 10px;
   border-radius: 10px;
   line-height: 1.5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .systemMessage {
@@ -63,7 +65,8 @@ body {
 }
 
 .userMessage {
-  background-color: #b3e5fc;
+  background-color: #4CAF50;
+  color: white;
   align-self: flex-end;
 }
 
@@ -82,6 +85,7 @@ body {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  background-color: #f7f7f7;
 }
 
 .submitButton {
@@ -91,6 +95,7 @@ body {
   background-color: #4CAF50;
   color: white;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .submitButton:hover {
